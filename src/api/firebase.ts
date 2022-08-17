@@ -1,5 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import {
+  initializeApp, FirebaseApp, getApps, getApp,
+} from 'firebase/app';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -12,6 +13,12 @@ const firebaseConfig = {
   measurementId: 'G-7T817DTZ49',
 };
 
-// Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
-export const firebaseAnalytics = getAnalytics(firebaseApp);
+export const initialiseFirebaseApp = () => (getApps().length === 0
+  ? initializeApp(firebaseConfig)
+  : getApp());
+
+export const firebaseApp: FirebaseApp = initialiseFirebaseApp();
+
+// import { getAnalytics } from 'firebase/analytics';
+// const firebaseAnalytics = getAnalytics(firebaseApp);
+export default firebaseApp;
