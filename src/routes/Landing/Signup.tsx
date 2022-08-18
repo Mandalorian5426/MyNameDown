@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import ProviderSignup from './ProviderSignup';
 import JoinerSignup from './JoinerSignup';
-import UserType from '../../types/userType.types';
+import UserType from '../../types/userType.type';
 
 const Signup = () => {
   const [userType, setUserType] = useState<UserType>();

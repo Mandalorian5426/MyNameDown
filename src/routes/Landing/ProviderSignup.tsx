@@ -8,6 +8,9 @@ import {
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import useSignUp from '../../hooks/useSignUp';
+import Routes from '../../types/routes';
+import ProviderUserAccount from '../../types/providerUserAccount.type';
+import firestore, { Collections } from '../../api/firestore';
 
 const ProviderSignup = () => {
   const navigate = useNavigate();
@@ -33,9 +36,14 @@ const ProviderSignup = () => {
 
   useEffect(() => {
     if (user && !error && !loading) {
-      navigate('/provider');
+      const userAccount: ProviderUserAccount = {
+        name,
+        contactNumber,
+      };
+      firestore.addOrUpdate(user.user.uid, Collections.USER_ACCOUNT, userAccount);
+      navigate(Routes.ROUTE_PROVIDER);
     }
-  }, [navigate, user, error, loading]);
+  }, [navigate, user, error, loading, name, contactNumber, username]);
 
   return (
     <Box>
@@ -48,6 +56,7 @@ const ProviderSignup = () => {
           placeholder="example@email.com"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -65,6 +74,7 @@ const ProviderSignup = () => {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -80,6 +90,7 @@ const ProviderSignup = () => {
           placeholder="Example Sport Facility"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -95,6 +106,7 @@ const ProviderSignup = () => {
           placeholder="0400 000 000"
           value={contactNumber}
           onChange={(e) => setContactNumber(e.target.value)}
+          required
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

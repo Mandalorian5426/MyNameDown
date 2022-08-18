@@ -5,7 +5,6 @@ import {
 
 const useSignIn = (
   auth: Auth,
-  onSignIn: (user: UserCredential) => Promise<void>,
 ) => {
   const [error, setError] = useState<unknown>();
   const [user, setUser] = useState<UserCredential>();
@@ -24,16 +23,12 @@ const useSignIn = (
         password,
       );
       setUser(signedInUser);
-
-      if (onSignIn && signedInUser) {
-        onSignIn(signedInUser);
-      }
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
-  }, [auth, onSignIn]);
+  }, [auth]);
 
   return useMemo(() => ({
     signInWithEmailAndPassword: signIn,

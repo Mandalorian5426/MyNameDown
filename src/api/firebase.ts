@@ -17,7 +17,7 @@ export const initialiseFirebaseApp = () => (getApps().length === 0
   ? initializeApp(firebaseConfig)
   : getApp());
 
-export const firebaseApp: FirebaseApp = initialiseFirebaseApp();
+const firebaseApp: FirebaseApp = initialiseFirebaseApp();
 
 // import { getAnalytics } from 'firebase/analytics';
 // const firebaseAnalytics = getAnalytics(firebaseApp);
